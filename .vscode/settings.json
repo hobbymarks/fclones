@@ -1,0 +1,51 @@
+{
+  "editor.autoClosingBrackets": "always",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.folding": true,
+  "editor.fontFamily": "Intel One Mono",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 17,
+  "editor.formatOnSave": true,
+  "editor.matchBrackets": "always",
+  "editor.rulers": [
+    99,
+    100
+  ],
+  "editor.wordWrap": "on",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "rust-analyzer.cargo.buildScripts.overrideCommand": [
+    "cargo",
+    "cranky",
+    "--quiet",
+    "--workspace",
+    "--message-format=json",
+    "--all-targets",
+    "--all-features"
+  ],
+  // Tell Rust Analyzer to use its own target directory, so we don't need to wait for it to finish wen we want to `cargo run`
+  "rust-analyzer.check.overrideCommand": [
+    "cargo",
+    "cranky",
+    "--workspace",
+    "--message-format=json",
+    "--all-targets",
+    "--all-features"
+  ],
+  "rust-analyzer.imports.granularity.group": "crate",
+  "rust-analyzer.imports.group.enable": true,
+  "rust-analyzer.rustfmt.extraArgs": [
+    "--config",
+    "max_width=99"
+  ],
+  "rust-analyzer.showUnlinkedFileNotification": false,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.fontFamily": "Fira Code Retina",
+  "terminal.integrated.fontSize": 13,
+  "workbench.colorCustomizations": {
+    "editorIndentGuide.activeBackground1": "#ff0000",
+    "editorIndentGuide.background1": "#ff00ff"
+  },
+  "workbench.tree.indent": 17
+}

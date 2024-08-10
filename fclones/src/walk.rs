@@ -198,11 +198,13 @@ impl<'a> Walk<'a> {
             for p in roots.into_iter() {
                 let p = self.absolute(p);
                 let ignore = ignore.clone();
-                match fs::metadata(&p.to_path_buf()) {
-                    Ok(metadata) if metadata.is_dir() && self.depth == 0 => self.log_warn(format!(
-                        "Skipping directory {} because recursive scan is disabled.",
-                        p.display()
-                    )),
+                match fs::metadata(p.to_path_buf()) {
+                    Ok(metadata) if metadata.is_dir() && self.depth == 0 => {
+                        self.log_warn(format!(
+                            "Skipping directory {} because recursive scan is disabled.",
+                            p.display()
+                        ))
+                    }
                     #[cfg(unix)]
                     Ok(metadata) => {
                         let dev = FileId::from_metadata(&metadata).device;

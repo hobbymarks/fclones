@@ -505,7 +505,9 @@ impl<F: AsRef<Path> + AsRef<FileId>> FileSubGroup<F> {
             let root_idx = roots.iter().position(|r| r.is_prefix_of(path));
             match root_idx {
                 Some(idx) => prefix_groups[idx].files.push(f),
-                None if group_by_id => id_groups.entry(id).or_insert(FileSubGroup::empty()).push(f),
+                None if group_by_id => {
+                    id_groups.entry(id).or_insert(FileSubGroup::empty()).push(f)
+                }
                 None => prefix_groups.push(FileSubGroup::single(f)),
             }
         }
@@ -1220,7 +1222,10 @@ fn group_by_contents(
 /// // print standard fclones report to stdout:
 /// write_report(&config, &log, &groups).unwrap();
 /// ```
-pub fn group_files(config: &GroupConfig, log: &dyn Log) -> Result<Vec<FileGroup<FileInfo>>, Error> {
+pub fn group_files(
+    config: &GroupConfig,
+    log: &dyn Log,
+) -> Result<Vec<FileGroup<FileInfo>>, Error> {
     let spinner = log.progress_bar("Initializing", ProgressBarLength::Unknown);
     let ctx = GroupCtx::new(config, log)?;
 
@@ -2087,6 +2092,7 @@ mod test {
         let mut file = OpenOptions::new()
             .write(true)
             .create(true)
+            .truncate(true)
             .open(path)
             .unwrap();
         file.write_all(prefix).unwrap();
